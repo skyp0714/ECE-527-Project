@@ -2,9 +2,9 @@ import numpy as np
 # from pysim import *
 from pylog import *
 
-@pylog(mode='debug')#(mode='pysim')
+@pylog(mode='cgen')#(mode='pysim')
 def pl_matmul(a, b, c):
-    def matmul(a, b, c):
+    def old_matmul(a, b, c):
         bufferA = np.empty((128, 1024), pl_fixed(16, 16))
         pragma("HLS array_partition variable=bufferA cyclic factor=16 dim=2")
         bufferB = np.empty((256,), pl_fixed(16, 16))
@@ -37,11 +37,11 @@ def pl_matmul(a, b, c):
                             tmp_256[jjj*16+15:jjj*16] = tmp[ii][jj+jjj][15:0]
                         c[i+ii][(j+jj)/16] = tmp_256
 
-    matmul(a, b, c)
+    old_matmul(a, b, c)
 
 if __name__ == "__main__":
     a = np.zeros((1024, 64), pl_fixed(256, 256))
     b = np.zeros((1024, 64), pl_fixed(256, 256))
     c = np.zeros((1024, 64), pl_fixed(256, 256))
     pl_matmul(a, b, c)
-    print(c)
+    print(a.shape, b.shape, c.shape)

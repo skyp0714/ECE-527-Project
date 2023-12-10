@@ -302,7 +302,7 @@ class PLOptMapTransformer:
 
         op1_subs = self.get_subscript(node.op1, 'i_dot_', config)
         op2_subs = self.get_subscript(node.op2, 'i_dot_', config)
-
+        
         op1_subs = self.visit(op1_subs, config)
         op2_subs = self.visit(op2_subs, config)
 
@@ -355,6 +355,210 @@ class PLOptMapTransformer:
 
         return [var_decl, stmt[0], write_back]
         # return stmt[0]
+
+# TODO: add visit_PLMatMul
+    def visit_PLMatMul(self, node, config=None):
+
+        op_type = node.op_type
+        op_shape = node.op_shape
+
+        acc_var = PLVariable('acc')
+
+        acc_var.pl_type = PLType(ty=op_type.ty, dim=0)
+        acc_var.pl_shape = (32,)
+        
+        elts = [ PLConst(e) for e in acc_var.pl_shape  ]
+        
+        acc_decl = PLArrayDecl( ele_type=op_type.ty,
+                                name=acc_var,
+                                dims=PLArray(elts=elts))
+
+        acc_decl.pl_type = PLType(ty=op_type.ty, dim=0)
+        acc_decl.pl_shape = ()
+
+        pragmas = [ #PLPragma(pragma=f"HLS ARRAY_PARTITION variable={node.op1.name} cyclic factor=8 dim=2"),
+                    PLPragma(pragma=f"HLS ARRAY_PARTITION variable={node.op2.name} cyclic factor=32 dim=2"),
+                    PLPragma(pragma=f"HLS ARRAY_PARTITION variable={node.target.name} cyclic factor=32 dim=2"),
+                    PLPragma(pragma=f"HLS ARRAY_PARTITION variable={acc_var.name} cyclic factor=32")
+                    ]
+        
+        # build array indices
+        # generating a[i][k]
+        
+        subs=[]
+        subs.append(PLVariable('i'))
+        subs.append(PLVariable('k'))
+
+        op1_subs = PLSubscript(var=node.op1, indices=subs)
+
+        op1_subs = self.visit(op1_subs, config)
+        
+        op1_subs.pl_type = PLType(ty=op_type.ty, dim=0)
+        op1_subs.pl_shape = tuple(1 for i in range(len(node.op1.pl_shape)))
+        
+        #generating b[k][j*T + t]
+        subs=[]
+        subs.append(PLVariable('k'))
+        mult = PLBinOp(op='*',
+                       left=PLVariable('j'),
+                       right=PLConst(32))
+        mult.pl_type = PLType(ty=op_type.ty, dim=0)
+        mult.pl_shape = ()
+        add = PLBinOp(op='+',
+                       left=mult,
+                       right=PLVariable('t'))
+        add.pl_type = PLType(ty=op_type.ty, dim=0)
+        add.pl_shape = ()
+        subs.append(add)
+
+        op2_subs = PLSubscript(var=node.op2, indices=subs)
+
+        op2_subs = self.visit(op2_subs, config)
+        
+        op2_subs.pl_type = PLType(ty=op_type.ty, dim=0)
+        op2_subs.pl_shape = tuple(1 for i in range(len(node.op2.pl_shape)))
+        
+        #generating c[i][j*T + t]
+        subs=[]
+        subs.append(PLVariable('i'))
+        mult = PLBinOp(op='*',
+                       left=PLVariable('j'),
+                       right=PLConst(32))
+        mult.pl_type = PLType(ty=op_type.ty, dim=0)
+        mult.pl_shape = ()
+        add = PLBinOp(op='+',
+                       left=mult,
+                       right=PLVariable('t'))
+        add.pl_type = PLType(ty=op_type.ty, dim=0)
+        add.pl_shape = ()
+        subs.append(add)
+
+        target_subs = PLSubscript(var=node.target, indices=subs)
+
+        target_subs = self.visit(target_subs, config)
+        
+        target_subs.pl_type = PLType(ty=op_type.ty, dim=0)
+        target_subs.pl_shape = tuple(1 for i in range(len(node.target.pl_shape)))
+        
+        #generating acc[t]
+        subs=[PLVariable('t')]
+
+        acc_subs = PLSubscript(var=acc_var, indices=subs)
+
+        acc_subs = self.visit(acc_subs, config)
+        
+        acc_subs.pl_type = PLType(ty=op_type.ty, dim=0)
+        acc_subs.pl_shape = tuple(1 for i in range(len(acc_var.pl_shape)))
+
+        # initialization statements
+        tmp_var = PLVariable('tmp')
+
+        tmp_var.pl_type = PLType(ty=op_type.ty, dim=0)
+        tmp_var.pl_shape = ()
+        var_decl = PLVariableDecl(ty=op_type.ty,
+                                  name=tmp_var,
+                                  init=op1_subs)
+        var_decl.pl_type = PLType(ty=op_type.ty, dim=0)
+        var_decl.pl_shape = ()
+        
+        acc_init = PLAssign(op='=',
+                         target=acc_subs,
+                         value=target_subs)
+        acc_init.pl_type = PLType(ty=op_type.ty, dim=0)
+        acc_init.pl_shape = ()
+        acc_init.is_decl = False
+        
+        # main statements
+        comp_var = PLVariable('k')
+        comp_var.pl_type = PLType('int',0)
+        comp_var.pl_shape = ()
+        
+        cond = PLBinOp(op='==',
+                         left=comp_var,
+                         right=PLConst(0))
+        cond.pl_type = PLType(ty=op_type.ty, dim=0)
+        cond.pl_shape = ()
+        cond.is_decl = False
+        
+        if_stmt = PLIf(test=cond, body=[acc_init], orelse=[])
+        if_stmt.pl_type = acc_init.pl_type
+        if_stmt.pl_shape = acc_init.pl_shape
+
+        mult = PLBinOp(op='*',
+                       left=tmp_var,
+                       right=op2_subs)
+
+        mult.pl_type = PLType(ty=op_type.ty, dim=0)
+        mult.pl_shape = ()
+
+        acc_stmt = PLAssign(op='+=',
+                         target=acc_subs,
+                         value=mult)
+        acc_stmt.pl_type = PLType(ty=op_type.ty, dim=0)
+        acc_stmt.pl_shape = ()
+        acc_stmt.is_decl = False
+        
+        #writeback statement
+        wb_stmt = PLAssign(op='=',
+                         target=target_subs,
+                         value=acc_subs)
+        wb_stmt.pl_type = PLType(ty=op_type.ty, dim=0)
+        wb_stmt.pl_shape = ()
+        wb_stmt.is_decl = False
+        idx = PLVariable('t')
+        idx.pl_type = PLType('int',0)
+        idx.pl_shape = ()
+        wb_stmt = [ PLFor(target=idx,
+                iter_dom=PLIterDom(end=PLConst(32)),
+                body=[PLPragma("HLS unroll factor=32"),wb_stmt],
+                orelse=[],
+                source='matmul') ]
+        
+        # start nested for loop
+        
+        stmt=[]
+        stmt += [PLPragma("HLS unroll factor=32"), PLPragma("HLS pipeline")]
+        stmt.append(if_stmt)
+        stmt.append(acc_stmt)
+        idx = PLVariable('t')
+        idx.pl_type = PLType('int',0)
+        idx.pl_shape = ()
+        stmt = [ PLFor(target=idx,
+                iter_dom=PLIterDom(end=PLConst(32)),
+                body=stmt,
+                orelse=[],
+                source='matmul') ]
+        stmt = [var_decl] + stmt
+        # k loop 
+        idx = PLVariable('k')
+        idx.pl_type = PLType('int',0)
+        idx.pl_shape = ()
+        stmt = [ PLFor(target=idx,
+                iter_dom=PLIterDom(end=PLConst(node.op2.pl_shape[0])),
+                body=stmt,
+                orelse=[],
+                source='matmul') ]
+        # j loop
+        idx = PLVariable('j')
+        idx.pl_type = PLType('int',0)
+        idx.pl_shape = ()
+        stmt = [ PLFor(target=idx,
+                iter_dom=PLIterDom(end=PLConst(op_shape[1]/32)),
+                body=stmt+wb_stmt,
+                orelse=[],
+                source='matmul') ]
+        # i loop
+        idx = PLVariable('i')
+        idx.pl_type = PLType('int',0)
+        idx.pl_shape = ()
+        stmt = [ PLFor(target=idx,
+                iter_dom=PLIterDom(end=PLConst(op_shape[0])),
+                body=stmt,
+                orelse=[],
+                source='matmul') ]
+        
+
+        return [acc_decl] + pragmas + stmt
 
     def visit_PLFunctionDef(self, node, config=None):
         # breakpoint()

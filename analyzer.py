@@ -245,6 +245,7 @@ class PLAnalyzer(PLPostorderVisitor):
                                         ast_node=node, 
                                         config=config)
                 else:
+                    print("not defined", node.func.attr)
                     raise NotImplementedError
 
         elif node.func.id == "pragma":
@@ -296,7 +297,19 @@ class PLAnalyzer(PLPostorderVisitor):
                                  arrays=[a.pl_data for a in node.args[1:]],
                                  ast_node=node,
                                  config=config)
-
+#TODO: add "matmul" and PLMatmul in nodes.py
+        elif node.func.id == "matmul":
+            if isinstance(node.parent, ast.Assign):
+                self.visit(node.parent.targets[0])
+                target = node.parent.targets[0].pl_data
+            else:
+                target = None
+            node.pl_data = PLMatMul(target=target,
+                                 op1=node.args[0].pl_data,
+                                 op2=node.args[1].pl_data,
+                                 ast_node=node,
+                                 config=config)
+            
         elif node.func.id == "dot":
             if isinstance(node.parent, ast.Assign):
                 self.visit(node.parent.targets[0])
@@ -331,6 +344,7 @@ class PLAnalyzer(PLPostorderVisitor):
                                orelse=node.orelse.pl_data,
                                ast_node=node,
                                config=config)
+        
         return node.pl_data
 
     def visit_Attribute(self, node, config=None):
@@ -344,7 +358,6 @@ class PLAnalyzer(PLPostorderVisitor):
     def visit_Subscript(self, node, config=None):
         var = node.value.pl_data
         indices = node.slice.pl_data
-
         if isinstance(indices, PLArray):
             indices = indices.elts
 

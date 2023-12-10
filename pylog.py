@@ -82,7 +82,13 @@ def pylog(func=None, *, mode='cgen', path=WORKSPACE, backend='vhls', \
         #                                           for i in range(len(args)) }
 
         # num_array_inputs = sum(len(val[1]) != 1 for val in arg_info.values())
-
+        if(debug):
+            # arg info contains information type and size information of the function arguments
+            # e.g.) {'w': ('float64', (3, 3, 16, 32)), 'data': ('float64', (360, 240, 16))}
+            print("arg information:")
+            print(arg_info)
+            print("========================================================")
+            
         project_path, top_func, max_idx, return_void = pylog_compile(
             src=source_func,
             arg_info=arg_info,
@@ -149,9 +155,11 @@ def pylog(func=None, *, mode='cgen', path=WORKSPACE, backend='vhls', \
 
 def pylog_compile(src, arg_info, backend, board, path,
                   gen_hlsc=True, debug=False, viz=False):
-    print("Compiling PyLog code ...")
+    #print("Compiling PyLog code ...")
     ast_py = ast.parse(src)
+    print("=====================================AST_PY=====================================")
     if debug: astpretty.pprint(ast_py)
+    print("=====================================AST_PY DONE=====================================")
 
     # add an extra attribute pointing to parent for each node
     ast_link_parent(ast_py)  # need to be called before analyzer
@@ -170,6 +178,8 @@ def pylog_compile(src, arg_info, backend, board, path,
     # execute passes
     if debug:
         tester.visit(ast_py)
+        print('\n')
+        print("pylog IR after tester")
 
     pylog_ir = analyzer.visit(ast_py)
     plnode_link_parent(pylog_ir)

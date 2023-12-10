@@ -641,6 +641,18 @@ class PLDot(PLNode):
         self.op1 = op1
         self.op2 = op2
 
+#TODO: add PLMatmul here, 
+class PLMatMul(PLNode):
+    ''' plmatmul
+    '''
+
+    def __init__(self, target, op1, op2, ast_node=None, config=None):
+        PLNode.__init__(self, ast_node, config)
+        self._fields = ['target', 'op1', 'op2']
+        self.target = target
+        self.op1 = op1
+        self.op2 = op2
+
 def gen_loop_nest(shape, body, source, targets=None):
     if targets:
         assert(len(shape) == len(targets))
@@ -659,3 +671,5 @@ def gen_loop_nest(shape, body, source, targets=None):
                         orelse=[],
                         source=source) ]
     return stmt[0]
+
+

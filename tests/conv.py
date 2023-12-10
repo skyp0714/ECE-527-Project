@@ -10,7 +10,7 @@ from pylog import *
 #             w)
 #     return c
 
-@pylog(mode='debug')
+@pylog(mode='cgen')
 def pl_conv_for(c, w, data):
     for i in range(32):
         c[i,:,:] = plmap(lambda x:dot(x[0:16, -1:2, -1:2], w[i,:,:,:]), data[0, 1:240, 1:360])

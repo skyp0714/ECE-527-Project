@@ -300,3 +300,15 @@ class PLChainingRewriter:
                 return self.IN_CHAINING
         else:
             return self.NOT_IN_CHAINING_OR_DONT_CARE
+
+#TODO: add "visit_PLMatMul"
+    def visit_PLMatMul(self, node, stmt_node=None):
+        op1_ret_val = self.visit(node.op1, stmt_node)
+        op2_ret_val = self.visit(node.op2, stmt_node)
+        if op1_ret_val != self.NOT_IN_CHAINING_OR_DONT_CARE or op2_ret_val != self.NOT_IN_CHAINING_OR_DONT_CARE:
+            if stmt_node == node:
+                return self.IN_CHAINING_AND_TOP_NODE
+            else:
+                return self.IN_CHAINING
+        else:
+            return self.NOT_IN_CHAINING_OR_DONT_CARE

@@ -649,6 +649,7 @@ class PLTyper:
                     # indices[i].parent = node
                     # the length along that dimension
                     if hasattr(node, 'is_offset'):
+                        print("OFFSET SET")
                         indices[i].is_offset = True
                     else:
                         indices[i].dim_length = array_shape[i]
@@ -750,7 +751,33 @@ class PLTyper:
 
         node.return_type = PLType(node.op1.pl_type.ty, 0)
         node.return_shape = ()
+        
 
+#TODO: add visit_PLMatmul 
+    def visit_PLMatMul(self, node, ctx={}):
+        self.visit(node.op1, ctx)
+        self.visit(node.op2, ctx)
+
+        op1_actual_shape = self.actual_shape(node.op1.pl_shape)
+        op2_actual_shape = self.actual_shape(node.op2.pl_shape)
+        
+        #print("Shape of Operator 1 is: " , op1_actual_shape)
+        #print("Shape of Operator 2 is: " , op2_actual_shape)
+        
+        assert (op1_actual_shape[1] == op2_actual_shape[0])
+
+        node.op_type = PLType(ty=node.op1.pl_type.ty,
+                              dim=op1_actual_shape)
+        node.op_shape = (op1_actual_shape[0], op2_actual_shape[1])
+        #print("Shape of Result is: ", node.op_shape)
+
+        node.pl_type = PLType(node.op1.pl_type.ty, 0)
+        node.pl_shape = ()
+
+        node.return_type = PLType(node.op1.pl_type.ty, 0)
+        node.return_shape = ()
+        
+        
     # def visit_PLAttribute(self, node, ctx={}):
 
     #     if node.attr = 'shape':

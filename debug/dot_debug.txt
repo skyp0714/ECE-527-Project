@@ -1,0 +1,1017 @@
+@pylog(mode='debug')
+def pl_simple_map(a, b):
+
+    c = dot(a, b)
+    e = dot(a[3, 1:3,:-2], b[1, 3:5, :-2])
+
+    x = 1
+    y = 3
+    z = dot(x, y)
+
+    f = plmap(lambda x, y: x * y, a[3, 1:3,:-2], b[1, 3:5, :-2])
+
+=====================================AST_PY=====================================
+Module(
+    body=[
+        FunctionDef(
+            lineno=2,
+            col_offset=0,
+            end_lineno=11,
+            end_col_offset=64,
+            name='pl_simple_map',
+            args=arguments(
+                posonlyargs=[],
+                args=[
+                    arg(lineno=2, col_offset=18, end_lineno=2, end_col_offset=19, arg='a', annotation=None, type_comment=None),
+                    arg(lineno=2, col_offset=21, end_lineno=2, end_col_offset=22, arg='b', annotation=None, type_comment=None),
+                ],
+                vararg=None,
+                kwonlyargs=[],
+                kw_defaults=[],
+                kwarg=None,
+                defaults=[],
+            ),
+            body=[
+                Assign(
+                    lineno=4,
+                    col_offset=4,
+                    end_lineno=4,
+                    end_col_offset=17,
+                    targets=[Name(lineno=4, col_offset=4, end_lineno=4, end_col_offset=5, id='c', ctx=Store())],
+                    value=Call(
+                        lineno=4,
+                        col_offset=8,
+                        end_lineno=4,
+                        end_col_offset=17,
+                        func=Name(lineno=4, col_offset=8, end_lineno=4, end_col_offset=11, id='dot', ctx=Load()),
+                        args=[
+                            Name(lineno=4, col_offset=12, end_lineno=4, end_col_offset=13, id='a', ctx=Load()),
+                            Name(lineno=4, col_offset=15, end_lineno=4, end_col_offset=16, id='b', ctx=Load()),
+                        ],
+                        keywords=[],
+                    ),
+                    type_comment=None,
+                ),
+                Assign(
+                    lineno=5,
+                    col_offset=4,
+                    end_lineno=5,
+                    end_col_offset=42,
+                    targets=[Name(lineno=5, col_offset=4, end_lineno=5, end_col_offset=5, id='e', ctx=Store())],
+                    value=Call(
+                        lineno=5,
+                        col_offset=8,
+                        end_lineno=5,
+                        end_col_offset=42,
+                        func=Name(lineno=5, col_offset=8, end_lineno=5, end_col_offset=11, id='dot', ctx=Load()),
+                        args=[
+                            Subscript(
+                                lineno=5,
+                                col_offset=12,
+                                end_lineno=5,
+                                end_col_offset=25,
+                                value=Name(lineno=5, col_offset=12, end_lineno=5, end_col_offset=13, id='a', ctx=Load()),
+                                slice=ExtSlice(
+                                    dims=[
+                                        Index(
+                                            value=Constant(lineno=5, col_offset=14, end_lineno=5, end_col_offset=15, value=3, kind=None),
+                                        ),
+                                        Slice(
+                                            lower=Constant(lineno=5, col_offset=17, end_lineno=5, end_col_offset=18, value=1, kind=None),
+                                            upper=Constant(lineno=5, col_offset=19, end_lineno=5, end_col_offset=20, value=3, kind=None),
+                                            step=None,
+                                        ),
+                                        Slice(
+                                            lower=None,
+                                            upper=UnaryOp(
+                                                lineno=5,
+                                                col_offset=22,
+                                                end_lineno=5,
+                                                end_col_offset=24,
+                                                op=USub(),
+                                                operand=Constant(lineno=5, col_offset=23, end_lineno=5, end_col_offset=24, value=2, kind=None),
+                                            ),
+                                            step=None,
+                                        ),
+                                    ],
+                                ),
+                                ctx=Load(),
+                            ),
+                            Subscript(
+                                lineno=5,
+                                col_offset=27,
+                                end_lineno=5,
+                                end_col_offset=41,
+                                value=Name(lineno=5, col_offset=27, end_lineno=5, end_col_offset=28, id='b', ctx=Load()),
+                                slice=ExtSlice(
+                                    dims=[
+                                        Index(
+                                            value=Constant(lineno=5, col_offset=29, end_lineno=5, end_col_offset=30, value=1, kind=None),
+                                        ),
+                                        Slice(
+                                            lower=Constant(lineno=5, col_offset=32, end_lineno=5, end_col_offset=33, value=3, kind=None),
+                                            upper=Constant(lineno=5, col_offset=34, end_lineno=5, end_col_offset=35, value=5, kind=None),
+                                            step=None,
+                                        ),
+                                        Slice(
+                                            lower=None,
+                                            upper=UnaryOp(
+                                                lineno=5,
+                                                col_offset=38,
+                                                end_lineno=5,
+                                                end_col_offset=40,
+                                                op=USub(),
+                                                operand=Constant(lineno=5, col_offset=39, end_lineno=5, end_col_offset=40, value=2, kind=None),
+                                            ),
+                                            step=None,
+                                        ),
+                                    ],
+                                ),
+                                ctx=Load(),
+                            ),
+                        ],
+                        keywords=[],
+                    ),
+                    type_comment=None,
+                ),
+                Assign(
+                    lineno=7,
+                    col_offset=4,
+                    end_lineno=7,
+                    end_col_offset=9,
+                    targets=[Name(lineno=7, col_offset=4, end_lineno=7, end_col_offset=5, id='x', ctx=Store())],
+                    value=Constant(lineno=7, col_offset=8, end_lineno=7, end_col_offset=9, value=1, kind=None),
+                    type_comment=None,
+                ),
+                Assign(
+                    lineno=8,
+                    col_offset=4,
+                    end_lineno=8,
+                    end_col_offset=9,
+                    targets=[Name(lineno=8, col_offset=4, end_lineno=8, end_col_offset=5, id='y', ctx=Store())],
+                    value=Constant(lineno=8, col_offset=8, end_lineno=8, end_col_offset=9, value=3, kind=None),
+                    type_comment=None,
+                ),
+                Assign(
+                    lineno=9,
+                    col_offset=4,
+                    end_lineno=9,
+                    end_col_offset=17,
+                    targets=[Name(lineno=9, col_offset=4, end_lineno=9, end_col_offset=5, id='z', ctx=Store())],
+                    value=Call(
+                        lineno=9,
+                        col_offset=8,
+                        end_lineno=9,
+                        end_col_offset=17,
+                        func=Name(lineno=9, col_offset=8, end_lineno=9, end_col_offset=11, id='dot', ctx=Load()),
+                        args=[
+                            Name(lineno=9, col_offset=12, end_lineno=9, end_col_offset=13, id='x', ctx=Load()),
+                            Name(lineno=9, col_offset=15, end_lineno=9, end_col_offset=16, id='y', ctx=Load()),
+                        ],
+                        keywords=[],
+                    ),
+                    type_comment=None,
+                ),
+                Assign(
+                    lineno=11,
+                    col_offset=4,
+                    end_lineno=11,
+                    end_col_offset=64,
+                    targets=[Name(lineno=11, col_offset=4, end_lineno=11, end_col_offset=5, id='f', ctx=Store())],
+                    value=Call(
+                        lineno=11,
+                        col_offset=8,
+                        end_lineno=11,
+                        end_col_offset=64,
+                        func=Name(lineno=11, col_offset=8, end_lineno=11, end_col_offset=13, id='plmap', ctx=Load()),
+                        args=[
+                            Lambda(
+                                lineno=11,
+                                col_offset=14,
+                                end_lineno=11,
+                                end_col_offset=32,
+                                args=arguments(
+                                    posonlyargs=[],
+                                    args=[
+                                        arg(lineno=11, col_offset=21, end_lineno=11, end_col_offset=22, arg='x', annotation=None, type_comment=None),
+                                        arg(lineno=11, col_offset=24, end_lineno=11, end_col_offset=25, arg='y', annotation=None, type_comment=None),
+                                    ],
+                                    vararg=None,
+                                    kwonlyargs=[],
+                                    kw_defaults=[],
+                                    kwarg=None,
+                                    defaults=[],
+                                ),
+                                body=BinOp(
+                                    lineno=11,
+                                    col_offset=27,
+                                    end_lineno=11,
+                                    end_col_offset=32,
+                                    left=Name(lineno=11, col_offset=27, end_lineno=11, end_col_offset=28, id='x', ctx=Load()),
+                                    op=Mult(),
+                                    right=Name(lineno=11, col_offset=31, end_lineno=11, end_col_offset=32, id='y', ctx=Load()),
+                                ),
+                            ),
+                            Subscript(
+                                lineno=11,
+                                col_offset=34,
+                                end_lineno=11,
+                                end_col_offset=47,
+                                value=Name(lineno=11, col_offset=34, end_lineno=11, end_col_offset=35, id='a', ctx=Load()),
+                                slice=ExtSlice(
+                                    dims=[
+                                        Index(
+                                            value=Constant(lineno=11, col_offset=36, end_lineno=11, end_col_offset=37, value=3, kind=None),
+                                        ),
+                                        Slice(
+                                            lower=Constant(lineno=11, col_offset=39, end_lineno=11, end_col_offset=40, value=1, kind=None),
+                                            upper=Constant(lineno=11, col_offset=41, end_lineno=11, end_col_offset=42, value=3, kind=None),
+                                            step=None,
+                                        ),
+                                        Slice(
+                                            lower=None,
+                                            upper=UnaryOp(
+                                                lineno=11,
+                                                col_offset=44,
+                                                end_lineno=11,
+                                                end_col_offset=46,
+                                                op=USub(),
+                                                operand=Constant(lineno=11, col_offset=45, end_lineno=11, end_col_offset=46, value=2, kind=None),
+                                            ),
+                                            step=None,
+                                        ),
+                                    ],
+                                ),
+                                ctx=Load(),
+                            ),
+                            Subscript(
+                                lineno=11,
+                                col_offset=49,
+                                end_lineno=11,
+                                end_col_offset=63,
+                                value=Name(lineno=11, col_offset=49, end_lineno=11, end_col_offset=50, id='b', ctx=Load()),
+                                slice=ExtSlice(
+                                    dims=[
+                                        Index(
+                                            value=Constant(lineno=11, col_offset=51, end_lineno=11, end_col_offset=52, value=1, kind=None),
+                                        ),
+                                        Slice(
+                                            lower=Constant(lineno=11, col_offset=54, end_lineno=11, end_col_offset=55, value=3, kind=None),
+                                            upper=Constant(lineno=11, col_offset=56, end_lineno=11, end_col_offset=57, value=5, kind=None),
+                                            step=None,
+                                        ),
+                                        Slice(
+                                            lower=None,
+                                            upper=UnaryOp(
+                                                lineno=11,
+                                                col_offset=60,
+                                                end_lineno=11,
+                                                end_col_offset=62,
+                                                op=USub(),
+                                                operand=Constant(lineno=11, col_offset=61, end_lineno=11, end_col_offset=62, value=2, kind=None),
+                                            ),
+                                            step=None,
+                                        ),
+                                    ],
+                                ),
+                                ctx=Load(),
+                            ),
+                        ],
+                        keywords=[],
+                    ),
+                    type_comment=None,
+                ),
+            ],
+            decorator_list=[
+                Call(
+                    lineno=1,
+                    col_offset=1,
+                    end_lineno=1,
+                    end_col_offset=20,
+                    func=Name(lineno=1, col_offset=1, end_lineno=1, end_col_offset=6, id='pylog', ctx=Load()),
+                    args=[],
+                    keywords=[
+                        keyword(
+                            arg='mode',
+                            value=Constant(lineno=1, col_offset=12, end_lineno=1, end_col_offset=19, value='debug', kind=None),
+                        ),
+                    ],
+                ),
+            ],
+            returns=None,
+            type_comment=None,
+        ),
+    ],
+    type_ignores=[],
+)
+=====================================AST_PY DONE=====================================
+Tester|||>>>> <class '_ast.arg'>
+<class 'str'>
+Tester|||>>>> <class '_ast.arg'>
+<class 'str'>
+Tester|||>>>> <class '_ast.Assign'>
+Tester|||>>>> is a Assign node?  True
+Tester|||>>>> is a stmt node?  True
+Tester|||>>>> <class '_ast.Assign'>
+Tester|||>>>> is a Assign node?  True
+Tester|||>>>> is a stmt node?  True
+Tester|||>>>> <class '_ast.Assign'>
+Tester|||>>>> is a Assign node?  True
+Tester|||>>>> is a stmt node?  True
+Tester|||>>>> <class '_ast.Assign'>
+Tester|||>>>> is a Assign node?  True
+Tester|||>>>> is a stmt node?  True
+Tester|||>>>> <class '_ast.Assign'>
+Tester|||>>>> is a Assign node?  True
+Tester|||>>>> is a stmt node?  True
+Tester|||>>>> <class '_ast.arg'>
+<class 'str'>
+Tester|||>>>> <class '_ast.arg'>
+<class 'str'>
+Tester|||>>>> <class '_ast.BinOp'>
+Tester|||>>>> is a BinOp node?  True
+Tester|||>>>> is a expr node?  True
+Tester|||>>>> <class '_ast.Lambda'>
+Tester|||>>>> <class '_ast.Assign'>
+Tester|||>>>> is a Assign node?  True
+Tester|||>>>> is a stmt node?  True
+Tester|||>>>> <class '_ast.Module'>
+a
+b
+x
+y
+{'a': None, 'b': None}
+
+
+pylog IR after analyzer
+[<PLFunctionDef<0x7f9cf800bf70>>]
+
+
+Visiting list, [<PLFunctionDef<0x7f9cf800bf70>>]
+Visiting PLFunctionDef, <PLFunctionDef<0x7f9cf800bf70>>
+Visiting list, []
+Visiting list, []
+Visiting PLAssign, <PLAssign<0x7f9cf7ffa700>>
+Visiting PLDot, <PLDot<0x7f9cf7ffa0a0>>
+Visiting PLVariable, <PLVariable<0x7f9cf7ffa250>>
+Visiting PLVariable, <PLVariable<0x7f9cf7ffa220>>
+Visiting PLAssign, <PLAssign<0x7f9cf7ffa130>>
+Visiting PLDot, <PLDot<0x7f9cf7ffa370>>
+Visiting PLSubscript, <PLVariable<0x7f9cf7ffa430>>[3, 1:3:None, None:-2:None]
+VISITING INDICS
+<class 'nodes.PLConst'>
+Visiting PLConst, 3
+VISITING INDICS
+<class 'nodes.PLSlice'>
+Visiting PLSlice, 1:3:None
+Visiting PLConst, 1
+Visiting PLConst, 3
+Visiting NoneType, None
+VISITING INDICS
+<class 'nodes.PLSlice'>
+Visiting PLSlice, None:-2:None
+Visiting NoneType, None
+Visiting PLConst, -2
+Visiting NoneType, None
+Visiting PLSubscript, <PLVariable<0x7f9cf7ffa4c0>>[1, 3:5:None, None:-2:None]
+VISITING INDICS
+<class 'nodes.PLConst'>
+Visiting PLConst, 1
+VISITING INDICS
+<class 'nodes.PLSlice'>
+Visiting PLSlice, 3:5:None
+Visiting PLConst, 3
+Visiting PLConst, 5
+Visiting NoneType, None
+VISITING INDICS
+<class 'nodes.PLSlice'>
+Visiting PLSlice, None:-2:None
+Visiting NoneType, None
+Visiting PLConst, -2
+Visiting NoneType, None
+Visiting PLAssign, <PLAssign<0x7f9cf7ffa190>>
+Visiting PLConst, 1
+Visiting PLAssign, <PLAssign<0x7f9cf7ffaa60>>
+Visiting PLConst, 3
+Visiting PLAssign, <PLAssign<0x7f9cf7ffad90>>
+Visiting PLDot, <PLDot<0x7f9cf7ffac70>>
+Visiting PLVariable, <PLVariable<0x7f9cf7ffaee0>>
+Visiting PLVariable, <PLVariable<0x7f9cf7ffafa0>>
+Visiting PLAssign, <PLAssign<0x7f9cf7ffabb0>>
+Visiting PLMap, <PLMap<0x7f9cf8021190>>
+Visiting PLSubscript, <PLVariable<0x7f9cf8021370>>[3, 1:3:None, None:-2:None]
+VISITING INDICS
+<class 'nodes.PLConst'>
+Visiting PLConst, 3
+VISITING INDICS
+<class 'nodes.PLSlice'>
+Visiting PLSlice, 1:3:None
+Visiting PLConst, 1
+Visiting PLConst, 3
+Visiting NoneType, None
+VISITING INDICS
+<class 'nodes.PLSlice'>
+Visiting PLSlice, None:-2:None
+Visiting NoneType, None
+Visiting PLConst, -2
+Visiting NoneType, None
+Visiting PLSubscript, <PLVariable<0x7f9cf80213d0>>[1, 3:5:None, None:-2:None]
+VISITING INDICS
+<class 'nodes.PLConst'>
+Visiting PLConst, 1
+VISITING INDICS
+<class 'nodes.PLSlice'>
+Visiting PLSlice, 3:5:None
+Visiting PLConst, 3
+Visiting PLConst, 5
+Visiting NoneType, None
+VISITING INDICS
+<class 'nodes.PLSlice'>
+Visiting PLSlice, None:-2:None
+Visiting NoneType, None
+Visiting PLConst, -2
+Visiting NoneType, None
+iter_dom_shape: (1, 2, 4)
+array.pl_shape: (1, 2, 4)
+array.pl_shape: (1, 2, 4)
+Visiting PLLambda, <PLLambda<0x7f9cf80210a0>>
+Visiting PLBinOp, <PLBinOp<0x7f9cf80211c0>>
+Visiting str, *
+Visiting PLVariable, <PLVariable<0x7f9cf80212e0>>
+Visiting PLVariable, <PLVariable<0x7f9cf8021310>>
+original left_shape = ()
+original right_shape = ()
+left_shape = ()
+right_shape = ()
+plmap: return type : PLType(float, 2)
+plmap: return shape: (1, 2, 4)
+Visiting list, []
+
+
+pylog IR after typer
+[<PLFunctionDef<0x7f9cf800bf70>>]
+
+
+OPT visiting list, [<PLFunctionDef<0x7f9cf800bf70>>]
+OPT visiting PLFunctionDef, <PLFunctionDef<0x7f9cf800bf70>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf800bbb0>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf7ffa040>>
+OPT visiting PLAssign, <PLAssign<0x7f9cf7ffa700>>
+OPT visiting PLDot, <PLDot<0x7f9cf7ffa0a0>>
+OPT visiting PLSubscript, <PLVariable<0x7f9cf7ffa250>>[<PLVariable<0x7f9cf7fabeb0>>, <PLVariable<0x7f9cf7fabf10>>, <PLVariable<0x7f9cf7fabf40>>]
+OPT visiting PLVariable, <PLVariable<0x7f9cf7ffa250>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf7fabeb0>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf7fabf10>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf7fabf40>>
+OPT visiting PLSubscript, <PLVariable<0x7f9cf7ffa220>>[<PLVariable<0x7f9cf7fabf70>>, <PLVariable<0x7f9cf7fabfd0>>, <PLVariable<0x7f9cf8028040>>]
+OPT visiting PLVariable, <PLVariable<0x7f9cf7ffa220>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf7fabf70>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf7fabfd0>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf8028040>>
+OPT visiting PLAssign, <PLAssign<0x7f9cf7ffa130>>
+OPT visiting PLDot, <PLDot<0x7f9cf7ffa370>>
+OPT visiting PLConst, 3
+OPT visiting PLConst, 1
+OPT visiting PLSubscript, <PLVariable<0x7f9cf7ffa430>>[3, <PLBinOp<0x7f9cf8028820>>, <PLVariable<0x7f9cf8028850>>]
+OPT visiting PLVariable, <PLVariable<0x7f9cf7ffa430>>
+OPT visiting PLConst, 3
+OPT visiting PLBinOp, <PLBinOp<0x7f9cf8028820>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf8028790>>
+OPT visiting PLConst, 1
+OPT visiting PLVariable, <PLVariable<0x7f9cf8028850>>
+OPT visiting PLSubscript, <PLVariable<0x7f9cf7ffa4c0>>[1, <PLBinOp<0x7f9cf8028910>>, <PLVariable<0x7f9cf8028940>>]
+OPT visiting PLVariable, <PLVariable<0x7f9cf7ffa4c0>>
+OPT visiting PLConst, 1
+OPT visiting PLBinOp, <PLBinOp<0x7f9cf8028910>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf8028880>>
+OPT visiting PLConst, 3
+OPT visiting PLVariable, <PLVariable<0x7f9cf8028940>>
+OPT visiting PLAssign, <PLAssign<0x7f9cf7ffa190>>
+OPT visiting PLConst, 1
+OPT visiting PLAssign, <PLAssign<0x7f9cf7ffaa60>>
+OPT visiting PLConst, 3
+OPT visiting PLAssign, <PLAssign<0x7f9cf7ffad90>>
+OPT visiting PLDot, <PLDot<0x7f9cf7ffac70>>
+OPT visiting PLSubscript, <PLVariable<0x7f9cf7ffaee0>>[]
+OPT visiting PLVariable, <PLVariable<0x7f9cf7ffaee0>>
+OPT visiting PLSubscript, <PLVariable<0x7f9cf7ffafa0>>[]
+OPT visiting PLVariable, <PLVariable<0x7f9cf7ffafa0>>
+OPT visiting PLAssign, <PLAssign<0x7f9cf7ffabb0>>
+OPT visiting PLMap, <PLMap<0x7f9cf8021190>>
+OPT visiting PLConst, 3
+OPT visiting PLConst, 1
+OPT visiting PLLambda, <PLLambda<0x7f9cf80210a0>>
+OPT visiting PLAssign, <PLAssign<0x7f9cf7fb0670>>
+OPT visiting PLBinOp, <PLBinOp<0x7f9cf80211c0>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf80212e0>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf8021310>>
+OPT visiting PLCall, <PLCall<0x7f9cf8021040>>
+OPT visiting PLVariable, <PLVariable<0x7f9cf8021550>>
+PLOptimizer [Loop_i_dot_0(dot)[Loop_i_dot_1(dot)[Loop_i_dot_2(dot)[]]], Loop_i_dot_0(dot)[Loop_i_dot_1(dot)[]], Loop_i_map_0(map)[Loop_i_map_1(map)[Loop_i_map_2(map)[]]]]
+Visiting list, [<PLFunctionDef<0x7f9cf800bf70>>]
+Visiting PLFunctionDef, <PLFunctionDef<0x7f9cf800bf70>>
+Visiting list, []
+Visiting list, []
+Visiting PLVariableDecl, <PLVariableDecl<0x7f9cf7fabdf0>>
+Visiting PLFor, <PLFor<0x7f9cf8028580>>
+Visiting PLFor, <PLFor<0x7f9cf8028460>>
+Visiting PLFor, <PLFor<0x7f9cf8028340>>
+Visiting PLAssign, <PLAssign<0x7f9cf8028190>>
+Visiting PLBinOp, <PLBinOp<0x7f9cf8028130>>
+Visiting str, *
+Visiting PLSubscript, <PLVariable<0x7f9cf7ffa250>>[<PLVariable<0x7f9cf7fabeb0>>, <PLVariable<0x7f9cf7fabf10>>, <PLVariable<0x7f9cf7fabf40>>]
+Visiting PLSubscript, <PLVariable<0x7f9cf7ffa220>>[<PLVariable<0x7f9cf7fabf70>>, <PLVariable<0x7f9cf7fabfd0>>, <PLVariable<0x7f9cf8028040>>]
+Visiting PLVariable, <PLVariable<0x7f9cf7fabd30>>
+Visiting PLAssign, <PLAssign<0x7f9cf8028250>>
+Visiting PLVariable, <PLVariable<0x7f9cf7fabd30>>
+Visiting PLVariable, <PLVariable<0x7f9cf7ffa6d0>>
+Visiting PLVariableDecl, <PLVariableDecl<0x7f9cf80286d0>>
+Visiting PLFor, <PLFor<0x7f9cf8028d60>>
+Visiting PLFor, <PLFor<0x7f9cf8028c40>>
+Visiting PLAssign, <PLAssign<0x7f9cf8028a90>>
+Visiting PLBinOp, <PLBinOp<0x7f9cf8028a30>>
+Visiting str, *
+Visiting PLSubscript, <PLVariable<0x7f9cf7ffa430>>[3, <PLBinOp<0x7f9cf8028820>>, <PLVariable<0x7f9cf8028850>>]
+Visiting PLSubscript, <PLVariable<0x7f9cf7ffa4c0>>[1, <PLBinOp<0x7f9cf8028910>>, <PLVariable<0x7f9cf8028940>>]
+Visiting PLVariable, <PLVariable<0x7f9cf8028610>>
+Visiting PLAssign, <PLAssign<0x7f9cf8028b50>>
+Visiting PLVariable, <PLVariable<0x7f9cf8028610>>
+Visiting PLVariable, <PLVariable<0x7f9cf7ffa310>>
+Visiting PLAssign, <PLAssign<0x7f9cf7ffa190>>
+Visiting PLConst, 1
+Visiting PLVariable, <PLVariable<0x7f9cf7ffa670>>
+Visiting PLAssign, <PLAssign<0x7f9cf7ffaa60>>
+Visiting PLConst, 3
+Visiting PLVariable, <PLVariable<0x7f9cf7ffaa00>>
+Visiting PLVariableDecl, <PLVariableDecl<0x7f9cf8028eb0>>
+Visiting PLAssign, <PLAssign<0x7f9cf7fb0190>>
+Visiting PLBinOp, <PLBinOp<0x7f9cf7fb00d0>>
+Visiting str, *
+Visiting PLSubscript, <PLVariable<0x7f9cf7ffaee0>>[]
+Visiting PLSubscript, <PLVariable<0x7f9cf7ffafa0>>[]
+Visiting PLVariable, <PLVariable<0x7f9cf8028df0>>
+Visiting PLAssign, <PLAssign<0x7f9cf7fb0250>>
+Visiting PLVariable, <PLVariable<0x7f9cf8028df0>>
+Visiting PLVariable, <PLVariable<0x7f9cf7ffad30>>
+Visiting PLArrayDecl, <PLVariable<0x7f9cf8021130>>(float,3)
+Visiting PLFor, <PLFor<0x7f9cf7fb0a00>>
+Visiting PLFor, <PLFor<0x7f9cf7fb08e0>>
+Visiting PLFor, <PLFor<0x7f9cf7fb07c0>>
+Visiting PLAssign, <PLAssign<0x7f9cf7fb0670>>
+Visiting PLBinOp, <PLBinOp<0x7f9cf80211c0>>
+Visiting str, *
+Visiting PLSubscript, <PLVariable<0x7f9cf8021370>>[3, <PLBinOp<0x7f9cf7fb0490>>, <PLVariable<0x7f9cf7fb04c0>>]
+Visiting PLSubscript, <PLVariable<0x7f9cf80213d0>>[1, <PLBinOp<0x7f9cf7fb0580>>, <PLVariable<0x7f9cf7fb05b0>>]
+Visiting PLSubscript, <PLVariable<0x7f9cf8021130>>[<PLVariable<0x7f9cf7fb03d0>>, <PLVariable<0x7f9cf7fb0610>>]
+Visiting list, []
+
+
+pylog IR after optimizer
+[<PLFunctionDef<0x7f9cf800bf70>>]
+
+
+CODEGEN visiting list: [<PLFunctionDef<0x7f9cf800bf70>>]
+CODEGEN visiting PLFunctionDef: <PLFunctionDef<0x7f9cf800bf70>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf800bbb0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffa040>>
+CODEGEN visiting list: [[], [], <PLVariableDecl<0x7f9cf7fabdf0>>, <PLFor<0x7f9cf8028580>>, <PLAssign<0x7f9cf8028250>>, <PLVariableDecl<0x7f9cf80286d0>>, <PLFor<0x7f9cf8028d60>>, <PLAssign<0x7f9cf8028b50>>, <PLAssign<0x7f9cf7ffa190>>, <PLAssign<0x7f9cf7ffaa60>>, <PLVariableDecl<0x7f9cf8028eb0>>, <PLAssign<0x7f9cf7fb0190>>, <PLAssign<0x7f9cf7fb0250>>, <PLVariable<0x7f9cf8021130>>(float,3), <PLFor<0x7f9cf7fb0a00>>, []]
+CODEGEN visiting list: []
+CODEGEN visiting list: []
+CODEGEN visiting PLVariableDecl: <PLVariableDecl<0x7f9cf7fabdf0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fabd30>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLFor: <PLFor<0x7f9cf8028580>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028490>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLConst: 4
+CODEGEN visiting PLConst: 1
+CODEGEN visiting list: [<PLFor<0x7f9cf8028460>>]
+CODEGEN visiting PLFor: <PLFor<0x7f9cf8028460>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028370>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLConst: 5
+CODEGEN visiting PLConst: 1
+CODEGEN visiting list: [<PLFor<0x7f9cf8028340>>]
+CODEGEN visiting PLFor: <PLFor<0x7f9cf8028340>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028220>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLConst: 6
+CODEGEN visiting PLConst: 1
+CODEGEN visiting list: [<PLAssign<0x7f9cf8028190>>]
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf8028190>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fabd30>>
+CODEGEN visiting PLBinOp: <PLBinOp<0x7f9cf8028130>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf7ffa250>>[<PLVariable<0x7f9cf7fabeb0>>, <PLVariable<0x7f9cf7fabf10>>, <PLVariable<0x7f9cf7fabf40>>]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffa250>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fabeb0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fabf10>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fabf40>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf7ffa220>>[<PLVariable<0x7f9cf7fabf70>>, <PLVariable<0x7f9cf7fabfd0>>, <PLVariable<0x7f9cf8028040>>]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffa220>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fabf70>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fabfd0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028040>>
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf8028250>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffa6d0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fabd30>>
+CODEGEN visiting PLVariableDecl: <PLVariableDecl<0x7f9cf80286d0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028610>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLFor: <PLFor<0x7f9cf8028d60>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028c70>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLConst: 2
+CODEGEN visiting PLConst: 1
+CODEGEN visiting list: [<PLFor<0x7f9cf8028c40>>]
+CODEGEN visiting PLFor: <PLFor<0x7f9cf8028c40>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028b20>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLConst: 4
+CODEGEN visiting PLConst: 1
+CODEGEN visiting list: [<PLAssign<0x7f9cf8028a90>>]
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf8028a90>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028610>>
+CODEGEN visiting PLBinOp: <PLBinOp<0x7f9cf8028a30>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf7ffa430>>[3, <PLBinOp<0x7f9cf8028820>>, <PLVariable<0x7f9cf8028850>>]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffa430>>
+CODEGEN visiting PLConst: 3
+CODEGEN visiting PLBinOp: <PLBinOp<0x7f9cf8028820>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028790>>
+CODEGEN visiting PLConst: 1
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028850>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf7ffa4c0>>[1, <PLBinOp<0x7f9cf8028910>>, <PLVariable<0x7f9cf8028940>>]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffa4c0>>
+CODEGEN visiting PLConst: 1
+CODEGEN visiting PLBinOp: <PLBinOp<0x7f9cf8028910>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028880>>
+CODEGEN visiting PLConst: 3
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028940>>
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf8028b50>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffa310>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028610>>
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf7ffa190>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffa670>>
+CODEGEN visiting PLConst: 1
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf7ffaa60>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffaa00>>
+CODEGEN visiting PLConst: 3
+CODEGEN visiting PLVariableDecl: <PLVariableDecl<0x7f9cf8028eb0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028df0>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf7fb0190>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028df0>>
+CODEGEN visiting PLBinOp: <PLBinOp<0x7f9cf7fb00d0>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf7ffaee0>>[]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffaee0>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf7ffafa0>>[]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffafa0>>
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf7fb0250>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7ffad30>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8028df0>>
+CODEGEN visiting PLArrayDecl: <PLVariable<0x7f9cf8021130>>(float,3)
+CODEGEN visiting PLConst: 1
+CODEGEN visiting PLConst: 2
+CODEGEN visiting PLConst: 4
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8021130>>
+CODEGEN visiting PLFor: <PLFor<0x7f9cf7fb0a00>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb0910>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLConst: 1
+CODEGEN visiting PLConst: 1
+CODEGEN visiting list: [<PLFor<0x7f9cf7fb08e0>>]
+CODEGEN visiting PLFor: <PLFor<0x7f9cf7fb08e0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb07f0>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLConst: 2
+CODEGEN visiting PLConst: 1
+CODEGEN visiting list: [<PLFor<0x7f9cf7fb07c0>>]
+CODEGEN visiting PLFor: <PLFor<0x7f9cf7fb07c0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb06d0>>
+CODEGEN visiting PLConst: 0
+CODEGEN visiting PLConst: 4
+CODEGEN visiting PLConst: 1
+CODEGEN visiting list: [<PLAssign<0x7f9cf7fb0670>>]
+CODEGEN visiting PLAssign: <PLAssign<0x7f9cf7fb0670>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf8021130>>[<PLVariable<0x7f9cf7fb03d0>>, <PLVariable<0x7f9cf7fb0610>>]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8021130>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb03d0>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb0610>>
+CODEGEN visiting PLBinOp: <PLBinOp<0x7f9cf80211c0>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf8021370>>[3, <PLBinOp<0x7f9cf7fb0490>>, <PLVariable<0x7f9cf7fb04c0>>]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf8021370>>
+CODEGEN visiting PLConst: 3
+CODEGEN visiting PLBinOp: <PLBinOp<0x7f9cf7fb0490>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb0400>>
+CODEGEN visiting PLConst: 1
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb04c0>>
+CODEGEN visiting PLSubscript: <PLVariable<0x7f9cf80213d0>>[1, <PLBinOp<0x7f9cf7fb0580>>, <PLVariable<0x7f9cf7fb05b0>>]
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf80213d0>>
+CODEGEN visiting PLConst: 1
+CODEGEN visiting PLBinOp: <PLBinOp<0x7f9cf7fb0580>>
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb04f0>>
+CODEGEN visiting PLConst: 3
+CODEGEN visiting PLVariable: <PLVariable<0x7f9cf7fb05b0>>
+CODEGEN visiting list: []
+C AST: 
+FileAST: 
+  FuncDef <ext[0]>: 
+    Decl <decl>: name=pl_simple_map, quals=[], storage=[], funcspec=[]
+      FuncDecl <type>: 
+        ParamList <args>: 
+          Decl <params[0]>: name=a, quals=None, storage=None, funcspec=None
+            ArrayDecl <type>: dim_quals=[]
+              ArrayDecl <type>: dim_quals=[]
+                ArrayDecl <type>: dim_quals=[]
+                  TypeDecl <type>: declname=a, quals=None
+                    IdentifierType <type>: names=['float']
+                  Constant <dim>: type=int, value=6
+                Constant <dim>: type=int, value=5
+              Constant <dim>: type=int, value=4
+          Decl <params[1]>: name=b, quals=None, storage=None, funcspec=None
+            ArrayDecl <type>: dim_quals=[]
+              ArrayDecl <type>: dim_quals=[]
+                ArrayDecl <type>: dim_quals=[]
+                  TypeDecl <type>: declname=b, quals=None
+                    IdentifierType <type>: names=['float']
+                  Constant <dim>: type=int, value=6
+                Constant <dim>: type=int, value=5
+              Constant <dim>: type=int, value=4
+        TypeDecl <type>: declname=pl_simple_map, quals=None
+          IdentifierType <type>: names=['void']
+    Compound <body>: 
+      Pragma <block_items[0]>: string=HLS INTERFACE m_axi port=a offset=slave bundle=data0
+      Pragma <block_items[1]>: string=HLS INTERFACE s_axilite register port=a bundle=ctrl
+      Pragma <block_items[2]>: string=HLS INTERFACE m_axi port=b offset=slave bundle=data1
+      Pragma <block_items[3]>: string=HLS INTERFACE s_axilite register port=b bundle=ctrl
+      Pragma <block_items[4]>: string=HLS INTERFACE s_axilite register port=return bundle=ctrl
+      Decl <block_items[5]>: name=tmp_dot, quals=None, storage=None, funcspec=None
+        TypeDecl <type>: declname=tmp_dot, quals=None
+          IdentifierType <type>: names=['float']
+        Constant <init>: type=int, value=0
+      For <block_items[6]>: 
+        DeclList <init>: 
+          Decl <decls[0]>: name=i_dot_0, quals=[], storage=[], funcspec=[]
+            TypeDecl <type>: declname=i_dot_0, quals=[]
+              IdentifierType <type>: names=['int']
+            Constant <init>: type=int, value=0
+        BinaryOp <cond>: op=<
+          ID <left>: name=i_dot_0
+          Constant <right>: type=int, value=4
+        Assignment <next>: op=+=
+          ID <lvalue>: name=i_dot_0
+          Constant <rvalue>: type=int, value=1
+        Compound <stmt>: 
+          For <block_items[0]>: 
+            DeclList <init>: 
+              Decl <decls[0]>: name=i_dot_1, quals=[], storage=[], funcspec=[]
+                TypeDecl <type>: declname=i_dot_1, quals=[]
+                  IdentifierType <type>: names=['int']
+                Constant <init>: type=int, value=0
+            BinaryOp <cond>: op=<
+              ID <left>: name=i_dot_1
+              Constant <right>: type=int, value=5
+            Assignment <next>: op=+=
+              ID <lvalue>: name=i_dot_1
+              Constant <rvalue>: type=int, value=1
+            Compound <stmt>: 
+              For <block_items[0]>: 
+                DeclList <init>: 
+                  Decl <decls[0]>: name=i_dot_2, quals=[], storage=[], funcspec=[]
+                    TypeDecl <type>: declname=i_dot_2, quals=[]
+                      IdentifierType <type>: names=['int']
+                    Constant <init>: type=int, value=0
+                BinaryOp <cond>: op=<
+                  ID <left>: name=i_dot_2
+                  Constant <right>: type=int, value=6
+                Assignment <next>: op=+=
+                  ID <lvalue>: name=i_dot_2
+                  Constant <rvalue>: type=int, value=1
+                Compound <stmt>: 
+                  Assignment <block_items[0]>: op=+=
+                    ID <lvalue>: name=tmp_dot
+                    BinaryOp <rvalue>: op=*
+                      ArrayRef <left>: 
+                        ArrayRef <name>: 
+                          ArrayRef <name>: 
+                            ID <name>: name=a
+                            ID <subscript>: name=i_dot_0
+                          ID <subscript>: name=i_dot_1
+                        ID <subscript>: name=i_dot_2
+                      ArrayRef <right>: 
+                        ArrayRef <name>: 
+                          ArrayRef <name>: 
+                            ID <name>: name=b
+                            ID <subscript>: name=i_dot_0
+                          ID <subscript>: name=i_dot_1
+                        ID <subscript>: name=i_dot_2
+      Assignment <block_items[7]>: op==
+        ID <lvalue>: name=c
+        ID <rvalue>: name=tmp_dot
+      Decl <block_items[8]>: name=tmp_dot, quals=None, storage=None, funcspec=None
+        TypeDecl <type>: declname=tmp_dot, quals=None
+          IdentifierType <type>: names=['float']
+        Constant <init>: type=int, value=0
+      For <block_items[9]>: 
+        DeclList <init>: 
+          Decl <decls[0]>: name=i_dot_0, quals=[], storage=[], funcspec=[]
+            TypeDecl <type>: declname=i_dot_0, quals=[]
+              IdentifierType <type>: names=['int']
+            Constant <init>: type=int, value=0
+        BinaryOp <cond>: op=<
+          ID <left>: name=i_dot_0
+          Constant <right>: type=int, value=2
+        Assignment <next>: op=+=
+          ID <lvalue>: name=i_dot_0
+          Constant <rvalue>: type=int, value=1
+        Compound <stmt>: 
+          For <block_items[0]>: 
+            DeclList <init>: 
+              Decl <decls[0]>: name=i_dot_1, quals=[], storage=[], funcspec=[]
+                TypeDecl <type>: declname=i_dot_1, quals=[]
+                  IdentifierType <type>: names=['int']
+                Constant <init>: type=int, value=0
+            BinaryOp <cond>: op=<
+              ID <left>: name=i_dot_1
+              Constant <right>: type=int, value=4
+            Assignment <next>: op=+=
+              ID <lvalue>: name=i_dot_1
+              Constant <rvalue>: type=int, value=1
+            Compound <stmt>: 
+              Assignment <block_items[0]>: op=+=
+                ID <lvalue>: name=tmp_dot
+                BinaryOp <rvalue>: op=*
+                  ArrayRef <left>: 
+                    ArrayRef <name>: 
+                      ArrayRef <name>: 
+                        ID <name>: name=a
+                        Constant <subscript>: type=int, value=3
+                      BinaryOp <subscript>: op=+
+                        ID <left>: name=i_dot_1
+                        Constant <right>: type=int, value=1
+                    ID <subscript>: name=i_dot_2
+                  ArrayRef <right>: 
+                    ArrayRef <name>: 
+                      ArrayRef <name>: 
+                        ID <name>: name=b
+                        Constant <subscript>: type=int, value=1
+                      BinaryOp <subscript>: op=+
+                        ID <left>: name=i_dot_1
+                        Constant <right>: type=int, value=3
+                    ID <subscript>: name=i_dot_2
+      Assignment <block_items[10]>: op==
+        ID <lvalue>: name=e
+        ID <rvalue>: name=tmp_dot
+      Decl <block_items[11]>: name=x, quals=None, storage=None, funcspec=None
+        TypeDecl <type>: declname=x, quals=None
+          IdentifierType <type>: names=['int']
+        Constant <init>: type=int, value=1
+      Decl <block_items[12]>: name=y, quals=None, storage=None, funcspec=None
+        TypeDecl <type>: declname=y, quals=None
+          IdentifierType <type>: names=['int']
+        Constant <init>: type=int, value=3
+      Decl <block_items[13]>: name=tmp_dot, quals=None, storage=None, funcspec=None
+        TypeDecl <type>: declname=tmp_dot, quals=None
+          IdentifierType <type>: names=['int']
+        Constant <init>: type=int, value=0
+      Assignment <block_items[14]>: op=+=
+        ID <lvalue>: name=tmp_dot
+        BinaryOp <rvalue>: op=*
+          ID <left>: name=x
+          ID <right>: name=y
+      Assignment <block_items[15]>: op==
+        ID <lvalue>: name=z
+        ID <rvalue>: name=tmp_dot
+      Decl <block_items[16]>: name=f, quals=None, storage=None, funcspec=None
+        ArrayDecl <type>: dim_quals=[]
+          ArrayDecl <type>: dim_quals=[]
+            ArrayDecl <type>: dim_quals=[]
+              TypeDecl <type>: declname=f, quals=None
+                IdentifierType <type>: names=['float']
+              Constant <dim>: type=int, value=4
+            Constant <dim>: type=int, value=2
+          Constant <dim>: type=int, value=1
+      For <block_items[17]>: 
+        DeclList <init>: 
+          Decl <decls[0]>: name=i_map_0, quals=[], storage=[], funcspec=[]
+            TypeDecl <type>: declname=i_map_0, quals=[]
+              IdentifierType <type>: names=['int']
+            Constant <init>: type=int, value=0
+        BinaryOp <cond>: op=<
+          ID <left>: name=i_map_0
+          Constant <right>: type=int, value=1
+        Assignment <next>: op=+=
+          ID <lvalue>: name=i_map_0
+          Constant <rvalue>: type=int, value=1
+        Compound <stmt>: 
+          For <block_items[0]>: 
+            DeclList <init>: 
+              Decl <decls[0]>: name=i_map_1, quals=[], storage=[], funcspec=[]
+                TypeDecl <type>: declname=i_map_1, quals=[]
+                  IdentifierType <type>: names=['int']
+                Constant <init>: type=int, value=0
+            BinaryOp <cond>: op=<
+              ID <left>: name=i_map_1
+              Constant <right>: type=int, value=2
+            Assignment <next>: op=+=
+              ID <lvalue>: name=i_map_1
+              Constant <rvalue>: type=int, value=1
+            Compound <stmt>: 
+              For <block_items[0]>: 
+                DeclList <init>: 
+                  Decl <decls[0]>: name=i_map_2, quals=[], storage=[], funcspec=[]
+                    TypeDecl <type>: declname=i_map_2, quals=[]
+                      IdentifierType <type>: names=['int']
+                    Constant <init>: type=int, value=0
+                BinaryOp <cond>: op=<
+                  ID <left>: name=i_map_2
+                  Constant <right>: type=int, value=4
+                Assignment <next>: op=+=
+                  ID <lvalue>: name=i_map_2
+                  Constant <rvalue>: type=int, value=1
+                Compound <stmt>: 
+                  Assignment <block_items[0]>: op==
+                    ArrayRef <lvalue>: 
+                      ArrayRef <name>: 
+                        ID <name>: name=f
+                        ID <subscript>: name=i_map_0
+                      ID <subscript>: name=i_map_1
+                    BinaryOp <rvalue>: op=*
+                      ArrayRef <left>: 
+                        ArrayRef <name>: 
+                          ArrayRef <name>: 
+                            ID <name>: name=a
+                            Constant <subscript>: type=int, value=3
+                          BinaryOp <subscript>: op=+
+                            ID <left>: name=i_map_1
+                            Constant <right>: type=int, value=1
+                        ID <subscript>: name=i_map_2
+                      ArrayRef <right>: 
+                        ArrayRef <name>: 
+                          ArrayRef <name>: 
+                            ID <name>: name=b
+                            Constant <subscript>: type=int, value=1
+                          BinaryOp <subscript>: op=+
+                            ID <left>: name=i_map_1
+                            Constant <right>: type=int, value=3
+                        ID <subscript>: name=i_map_2
+Start C Code generation.
+Generated C Code:
+#include "ap_int.h"
+#include "ap_fixed.h"
+#include "hls_math.h"
+
+void pl_simple_map(float a[4][5][6], float b[4][5][6])
+{
+  #pragma HLS INTERFACE m_axi port=a offset=slave bundle=data0
+  #pragma HLS INTERFACE s_axilite register port=a bundle=ctrl
+  #pragma HLS INTERFACE m_axi port=b offset=slave bundle=data1
+  #pragma HLS INTERFACE s_axilite register port=b bundle=ctrl
+  #pragma HLS INTERFACE s_axilite register port=return bundle=ctrl
+  float tmp_dot = 0;
+  for (int i_dot_0 = 0; i_dot_0 < 4; i_dot_0 += 1)
+  {
+    for (int i_dot_1 = 0; i_dot_1 < 5; i_dot_1 += 1)
+    {
+      for (int i_dot_2 = 0; i_dot_2 < 6; i_dot_2 += 1)
+      {
+        tmp_dot += a[i_dot_0][i_dot_1][i_dot_2] * b[i_dot_0][i_dot_1][i_dot_2];
+      }
+
+    }
+
+  }
+
+  c = tmp_dot;
+  float tmp_dot = 0;
+  for (int i_dot_0 = 0; i_dot_0 < 2; i_dot_0 += 1)
+  {
+    for (int i_dot_1 = 0; i_dot_1 < 4; i_dot_1 += 1)
+    {
+      tmp_dot += a[3][i_dot_1 + 1][i_dot_2] * b[1][i_dot_1 + 3][i_dot_2];
+    }
+
+  }
+
+  e = tmp_dot;
+  int x = 1;
+  int y = 3;
+  int tmp_dot = 0;
+  tmp_dot += x * y;
+  z = tmp_dot;
+  float f[1][2][4];
+  for (int i_map_0 = 0; i_map_0 < 1; i_map_0 += 1)
+  {
+    for (int i_map_1 = 0; i_map_1 < 2; i_map_1 += 1)
+    {
+      for (int i_map_2 = 0; i_map_2 < 4; i_map_2 += 1)
+      {
+        f[i_map_0][i_map_1] = a[3][i_map_1 + 1][i_map_2] * b[1][i_map_1 + 3][i_map_2];
+      }
+
+    }
+
+  }
+
+}
+
+
