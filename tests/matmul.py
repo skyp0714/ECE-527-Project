@@ -40,8 +40,8 @@ def pl_matmul(a, b, c):
     old_matmul(a, b, c)
 
 if __name__ == "__main__":
-    a = np.zeros((1024, 64), pl_fixed(256, 256))
-    b = np.zeros((1024, 64), pl_fixed(256, 256))
-    c = np.zeros((1024, 64), pl_fixed(256, 256))
+    a = np.zeros((1024, 64))
+    b = np.zeros((1024, 64))
+    c = np.zeros((1024, 64))
     pl_matmul(a, b, c)
     print(a.shape, b.shape, c.shape)
